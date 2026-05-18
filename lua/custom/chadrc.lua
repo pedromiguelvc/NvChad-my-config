@@ -3,7 +3,7 @@ local M = {}
 
 M.ui = {
   theme = "tokyodark",
-  transparency = false,
+  transparency = true,
   hl_override = {
     CursorLine = { bg = "#202132" }, -- #202132/#2a2a2a/#3b4261
   },
@@ -43,7 +43,7 @@ M.ui = {
       { "󰣪 Mason", "Cmd Line", "Mason" },
       { "󰿅 Exit", "Cmd Line", "Q" },
     },
-  }
+  },
 }
 
 local keyword_groups_to_italicize = {

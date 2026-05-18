@@ -127,6 +127,14 @@ M.lspconfig = {
       "LSP definition",
     },
 
+    ["<C-w>gd"] = {
+      function()
+        vim.cmd "vsplit"
+        vim.lsp.buf.definition()
+      end,
+      "LSP definition",
+    },
+
     ["K"] = {
       function()
         vim.lsp.buf.hover {
