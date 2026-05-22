@@ -1,6 +1,7 @@
 local telescope = require "telescope"
 local actions = require "telescope.actions"
 local fb_actions = require "telescope._extensions.file_browser.actions"
+local live_grep_args_actions = require "telescope-live-grep-args.actions"
 
 local function close_buffer(prompt_bufnr)
   local sucess, err = pcall(actions.delete_buffer, prompt_bufnr)
@@ -52,7 +53,7 @@ local options = {
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     file_ignore_patterns = { "node_modules" },
     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-    path_display = { "smart" },
+    path_display = { shorten = { len = 2, exclude = { -1, -2 } } },
     winblend = 0,
     border = {},
     borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
@@ -79,9 +80,11 @@ local options = {
   },
 
   pickers = {
-    oldfiles = {
-      cwd_only = true,
-    },
+    oldfiles = { cwd_only = true },
+    find_files = { initial_mode = "insert" },
+    live_grep = { initial_mode = "insert" },
+    grep_string = { initial_mode = "insert" },
+    current_buffer_fuzzy_find = { initial_mode = "insert" },
   },
 
   extensions_list = { "themes", "terms", "fzf", "live_grep_args", "file_browser", "lazygit" },

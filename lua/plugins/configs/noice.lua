@@ -3,15 +3,27 @@ local noice = require "noice"
 noice.setup {
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-    progress = {
-      enabled = false,
-    },
+    progress = { enabled = false },
     hover = {
       enabled = true,
       silent = true,
+      opts = {
+        border = { style = "rounded" },
+        position = { row = 2 },
+        size = {
+          max_height = 20,
+          max_width = 80,
+        },
+      },
     },
     signature = {
       enabled = true,
+      opts = {
+        size = {
+          max_height = 10,
+          max_width = 80,
+        },
+      },
     },
     override = {
       ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -20,21 +32,16 @@ noice.setup {
     },
   },
   routes = {
-    {
-      filter = { event = "msg_show", kind = "", find = "written" },
-      opts = { skip = true },
-    },
-    {
-      filter = { event = "msg_showcmd", kind = "cmdline" },
-      opts = { skip = true },
-    },
+    { filter = { event = "msg_show", kind = "", find = "written" }, opts = { skip = true } },
+    { filter = { event = "msg_showcmd", kind = "cmdline" }, opts = { skip = true } },
+    { filter = { event = "msg_show", find = "search hit BOTTOM" }, opts = { skip = true } },
+    { filter = { event = "msg_show", find = "search hit TOP" }, opts = { skip = true } },
+    { filter = { event = "msg_show", find = "%d+ lines yanked" }, opts = { skip = true } },
+    { filter = { event = "msg_show", kind = "wmsg" }, opts = { skip = true } },
+    { filter = { event = "notify", min_height = 1 }, view = "mini", opts = { skip = false } },
   },
-  messages = {
-    enabled = true,
-  },
-  popupmenu = {
-    enabled = true,
-  },
+  messages = { enabled = true },
+  popupmenu = { enabled = true },
   commands = {
     history = {
       -- options for the message history that you get with `:Noice`
@@ -43,7 +50,7 @@ noice.setup {
         any = {
           { event = "notify" },
           { error = true },
-          { warning = false },
+          { warning = true },
           { event = "msg_show", kind = { "" } },
           { event = "lsp", kind = "message" },
         },

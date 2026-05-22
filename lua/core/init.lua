@@ -32,14 +32,19 @@ opt.tabstop = 2
 opt.softtabstop = 2
 opt.autoindent = true
 
-opt.fillchars = { eob = "¬" }
+opt.fillchars = {
+  eob = "¬",
+  vert = "│",
+  fold = " ",
+  diff = "╱",
+}
 opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"
 opt.autoread = true
 
 -- Numbers
-opt.number = false
+opt.number = true
 opt.numberwidth = 2
 opt.ruler = false
 opt.relativenumber = true
@@ -54,6 +59,8 @@ opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
 opt.inccommand = "split"
+opt.scrolloff = 8
+opt.sidescrolloff = 8
 
 -- interval for writing swap file to disk, also used by gitsigns
 opt.updatetime = 250

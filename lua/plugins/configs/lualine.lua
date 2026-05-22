@@ -37,7 +37,12 @@ lualine.setup {
   },
   sections = {
     lualine_a = { "mode" },
-    lualine_b = { "branch", "diff", "diagnostics" },
+    lualine_b = {
+      "branch",
+      "diff",
+      "diagnostics",
+      { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+    },
     lualine_c = {
       {
         "buffers",
@@ -61,6 +66,18 @@ lualine.setup {
         noice_mode.get,
         cond = noice_mode.has,
         color = { fg = "#ff9e64" },
+      },
+      {
+        "encoding",
+        cond = function()
+          return (vim.bo.fenc or vim.go.enc) ~= "utf-8"
+        end,
+      },
+      {
+        "fileformat",
+        cond = function()
+          return vim.bo.fileformat ~= "unix"
+        end,
       },
     },
     lualine_y = { "progress" },

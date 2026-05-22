@@ -5,7 +5,10 @@ M.ui = {
   theme = "tokyodark",
   transparency = true,
   hl_override = {
-    CursorLine = { bg = "#202132" }, -- #202132/#2a2a2a/#3b4261
+    CursorLine = { bg = "#252640" },
+    LineNr = { fg = "#4a4f6e" },
+    CursorLineNr = { fg = "#7aa2f7", bold = true },
+    Comment = { fg = "#565f89", italic = true },
   },
 
   cmp = {
@@ -17,7 +20,7 @@ M.ui = {
     enabled = false,
   },
 
-  telescope = { style = "bordered" }, -- borderless / bordered
+  telescope = { style = "borderless" }, -- borderless / bordered
 
   nvdash = {
     load_on_startup = true,
