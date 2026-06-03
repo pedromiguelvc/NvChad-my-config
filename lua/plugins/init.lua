@@ -49,9 +49,7 @@ local plugins = {
   -- git stuff
   {
     "lewis6991/gitsigns.nvim",
-    ft = { "gitcommit", "diff" },
     init = function()
-      -- load gitsigns only when a git file is opened
       vim.api.nvim_create_autocmd({ "BufRead" }, {
         group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
         callback = function()
@@ -66,7 +64,7 @@ local plugins = {
       })
     end,
     opts = function()
-      return require "plugins.configs.gitsings"
+      return require "plugins.configs.gitsigns"
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "git")
@@ -284,14 +282,6 @@ local plugins = {
     },
     -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
-  },
-
-  {
-    "github/copilot.vim",
-    lazy = false,
-    config = function()
-      require "plugins.configs.copilot"
-    end,
   },
 
   {

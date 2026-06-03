@@ -1,16 +1,47 @@
 --@type ChadrcConfig
+local c = require "custom.colors"
 local M = {}
 
 M.ui = {
   theme = "tokyodark",
   transparency = true,
+
   hl_override = {
-    CursorLine = { bg = "#252640" },
-    LineNr = { fg = "#4a4f6e" },
-    CursorLineNr = { fg = "#7aa2f7", bold = true },
-    Comment = { fg = "#565f89", italic = true },
+    CursorLine = { bg = c.bg_alt },
+    LineNr = { fg = c.fg_muted },
+    CursorLineNr = { fg = c.primary, bold = true },
+
+    -- Override that works here
+    Boolean = { italic = true },
+    Conditional = { italic = true },
+    Include = { italic = true },
   },
 
+  hl_add = {
+    -- Git
+    GitSignsCurrentLineBlame = { fg = c.git_blame, italic = true },
+
+    -- Indent guides
+    IblIndent = { fg = c.bg_subtle },
+    IblScope = { fg = c.border },
+
+    -- UI chrome
+    WinSeparator = { fg = c.border },
+    -- Search
+    Search = { fg = c.fg, bg = c.search },
+    IncSearch = { fg = c.bg, bg = c.primary },
+    CurSearch = { fg = c.bg, bg = c.secondary },
+
+    -- Diagnostics
+    DiagnosticVirtualTextError = { fg = c.error, bg = "#2a1f2e", italic = true },
+    DiagnosticVirtualTextWarn = { fg = c.warn, bg = "#2a2518", italic = true },
+    DiagnosticVirtualTextInfo = { fg = c.info, bg = c.bg, italic = true },
+    DiagnosticVirtualTextHint = { fg = c.hint, bg = c.bg, italic = true },
+
+    TelescopePromptCounter = { bg = c.telescope_prompt, fg = c.fg_dim },
+    TelescopeBorder = { bg = c.telescope_bg, fg = c.telescope_border },
+    TelescopeSelection = { bg = c.telescope_selected, fg = c.fg },
+  },
   cmp = {
     style = "flat_dark", -- default/flat_light/flat_dark/atom/atom_colored
     selected_item_bg = "simple", -- colored / simple
@@ -54,9 +85,6 @@ local keyword_groups_to_italicize = {
   "@keyword",
   "@keyword.function",
   "@keyword.return",
-  "@keyword.operator",
-  "@keyword.conditional",
-  "@keyword.repeat",
   "@keyword.exception",
   "@keyword.import",
   "@storageclass",

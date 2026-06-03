@@ -85,6 +85,8 @@ local options = {
     live_grep = { initial_mode = "insert" },
     grep_string = { initial_mode = "insert" },
     current_buffer_fuzzy_find = { initial_mode = "insert" },
+    lsp_document_symbols = { initial_mode = "insert" },
+    lsp_dynamic_workspace_symbols = { initial_mode = "insert" },
   },
 
   extensions_list = { "themes", "terms", "fzf", "live_grep_args", "file_browser", "lazygit" },
