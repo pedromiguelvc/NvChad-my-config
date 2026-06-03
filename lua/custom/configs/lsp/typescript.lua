@@ -11,7 +11,4 @@ return {
       },
     },
   },
-  eslint = {
-    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-  },
 }

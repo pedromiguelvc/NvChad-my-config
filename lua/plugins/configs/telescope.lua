@@ -98,9 +98,6 @@ local options = {
       lazy = true,
       case_mode = "smart_case",
     },
-    live_grep_args = {
-      auto_quoting = false,
-    },
     file_browser = {
       dir_icon = "",
       path = "%:p:h",
