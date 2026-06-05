@@ -1,7 +1,6 @@
 local telescope = require "telescope"
 local actions = require "telescope.actions"
 local fb_actions = require "telescope._extensions.file_browser.actions"
-local live_grep_args_actions = require "telescope-live-grep-args.actions"
 
 local function close_buffer(prompt_bufnr)
   local sucess, err = pcall(actions.delete_buffer, prompt_bufnr)
@@ -89,7 +88,7 @@ local options = {
     lsp_dynamic_workspace_symbols = { initial_mode = "insert" },
   },
 
-  extensions_list = { "themes", "terms", "fzf", "live_grep_args", "file_browser", "lazygit" },
+  extensions_list = { "themes", "terms", "fzf", "file_browser", "lazygit" },
   extensions = {
     fzf = {
       fuzzy = true,

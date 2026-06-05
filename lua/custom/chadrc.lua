@@ -71,7 +71,7 @@ M.ui = {
       { " Find File", "Spc f f", "Telescope find_files" },
       { " Find All", "Spc f a", "Telescope find_files follow=true no_ignore=true hidden=true" },
       { " Lazy Git", "Spc l g", "LazyGit" },
-      { "󰈭 Find Word", "Spc f w", "Telescope live_grep_args" },
+      { "󰈭 Find Word", "Spc f w", "Telescope live_grep" },
       { " Session", "Cmd Line", "source Session.vim" },
       { "󰒲 Lazy", "Cmd Line", "Lazy" },
       { "󰣪 Mason", "Cmd Line", "Mason" },
