@@ -20,6 +20,8 @@ opt.showmode = false
 opt.cmdheight = 0
 
 opt.wrap = true
+opt.linebreak = true
+opt.breakindent = true
 
 opt.cursorline = true
 opt.guicursor = "n-v-c:block," .. "i:ver25-blinkon100," .. "r-cr:hor20," .. "o:hor50"
