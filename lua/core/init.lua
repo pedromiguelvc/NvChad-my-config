@@ -28,7 +28,7 @@ opt.guicursor = "n-v-c:block," .. "i:ver25-blinkon100," .. "r-cr:hor20," .. "o:h
 
 -- Indenting
 opt.expandtab = true
-opt.shiftwidth = 2
+opt.shiftwidth = 4
 opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
@@ -144,9 +144,9 @@ autocmd("BufReadPost", {
 })
 
 autocmd("FileType", {
-  pattern = { "py", "js", "java" },
+  pattern = { "lua" },
   callback = function()
-    vim.bo.shiftwidth = 4
+    vim.bo.shiftwidth = 2
   end,
   desc = "Set shiftwidth to 4 in the type of files listed above",
 })

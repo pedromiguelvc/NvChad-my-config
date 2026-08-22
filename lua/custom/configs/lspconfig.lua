@@ -7,6 +7,7 @@ local modules = {
   "custom.configs.lsp.java",
   "custom.configs.lsp.go",
   "custom.configs.lsp.haskell",
+  "custom.configs.lsp.nix",
 }
 
 for _, mod in ipairs(modules) do

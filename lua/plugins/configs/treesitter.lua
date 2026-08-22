@@ -1,6 +1,5 @@
-local ts = require "nvim-treesitter.configs"
 
-ts.setup {
+return {
   ensure_installed = {
     -- Main Languages
     "c",

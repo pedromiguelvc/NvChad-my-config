@@ -18,7 +18,7 @@ M.on_attach = function(client, bufnr)
     require("nvchad.signature").setup(client)
   end
 
-  if not utils.load_config().ui.lsp_semantic_tokens and client:supports_method("textDocument/semanticTokens") then
+  if not utils.load_config().ui.lsp_semantic_tokens and client:supports_method "textDocument/semanticTokens" then
     client.server_capabilities.semanticTokensProvider = nil
   end
 end
@@ -58,11 +58,11 @@ local lua_config_settings = {
       maxPreload = 100000,
       preloadFileSize = 10000,
     },
-  }
+  },
 }
 
 M.lsp.config("*", { capabilities = M.capabilities, on_attach = M.on_attach })
-M.lsp.config('lua_ls', { settings = lua_config_settings })
-M.lsp.enable("lua_ls")
+M.lsp.config("lua_ls", { settings = lua_config_settings })
+M.lsp.enable "lua_ls"
 
 return M
