@@ -26,14 +26,14 @@ autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
 
 autocmd("VimEnter", {
   callback = function(data)
-    local directory = vim.fn.isdirectory(data.file) == 1
-
-    if directory then
+    if vim.fn.isdirectory(data.file) == 1 then
       vim.cmd.cd(data.file)
       vim.cmd "Telescope file_browser"
+    elseif vim.fn.argc() == 0 then
+      require("nvchad.nvdash").open()
     end
   end,
-  desc = "Open Telescope file browser when in a directory",
+  desc = "Telescope file browser for directories, Nvdash on a bare `nvim` invocation",
 })
 
 autocmd("BufReadPost", {

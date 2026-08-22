@@ -56,15 +56,34 @@ return {
     accept = {
       auto_brackets = { enabled = true },
     },
+    list = {
+      selection = { preselect = false },
+    },
 
     menu = {
       border = menu_border,
       winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
       scrollbar = false,
+      draw = {
+        padding = 1,
+        gap = 1,
+        columns = {
+          { "kind_icon" },
+          { "label", "label_description", gap = 1 },
+          { "kind" },
+        },
+      },
+    },
+    ghost_text = {
+      enabled = true,
+      show_without_selection = false, -- only when something is actually selected
     },
 
     documentation = {
       auto_show = false,
+      auto_show_delay_ms = 250,
+      treesitter_highlighting = true,
+
       window = {
         border = border "CmpDocBorder",
         winhighlight = "Normal:CmpDoc",
@@ -72,5 +91,11 @@ return {
     },
   },
 
-  signature = { enabled = true },
+  signature = {
+    enabled = true,
+    window = {
+      border = border "CmpDocBorder",
+      winhighlight = "Normal:CmpDoc",
+    },
+  },
 }

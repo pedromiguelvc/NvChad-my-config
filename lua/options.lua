@@ -60,6 +60,7 @@ opt.updatetime = 250
 opt.whichwrap:append "<>[]hl"
 
 g.mapleader = " " -- Space key
+g.health = { style = "float" }
 
 -- folding
 wo.foldmethod = "expr"
