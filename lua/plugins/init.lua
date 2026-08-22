@@ -6,17 +6,25 @@ local plugins = {
 
   {
     "NvChad/base46",
-    branch = "v2.0",
     build = function()
+      require("base46").load_all_highlights()
+    end,
+    config = function()
       require("base46").load_all_highlights()
     end,
   },
 
   {
     "NvChad/ui",
-    branch = "v2.0",
     lazy = false,
+    config = function()
+      require "nvchad"
+    end,
   },
+
+  "nvzone/volt",
+  "nvzone/menu",
+  { "nvzone/minty", cmd = { "Huefy", "Shades" } },
 
   {
     "nvim-tree/nvim-web-devicons",
@@ -31,18 +39,69 @@ local plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    init = function()
-      require("core.utils").lazy_load "nvim-treesitter"
-    end,
-    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
-    opts = function()
-      return require "plugins.configs.treesitter"
-    end,
-    config = function(_, opts)
+    cmd = { "TSInstall", "TSUpdate", "TSUninstall", "TSLog" },
+    dependencies = {
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
+    },
+    config = function()
       dofile(vim.g.base46_cache .. "syntax")
-      require("nvim-treesitter.config").setup(opts)
+
+      local ts = require "plugins.configs.treesitter"
+      ts.ensure_parsers_installed()
+      ts.setup_highlight_indent()
+
+      require("nvim-treesitter-textobjects").setup {
+        select = ts.textobjects_select,
+      }
+
+      local select = require "nvim-treesitter-textobjects.select"
+      local move = require "nvim-treesitter-textobjects.move"
+      local swap = require "nvim-treesitter-textobjects.swap"
+
+      local function map_select(keys, query)
+        vim.keymap.set({ "x", "o" }, keys, function()
+          select.select_textobject(query, "textobjects")
+        end)
+      end
+
+      map_select("af", "@function.outer")
+      map_select("if", "@function.inner")
+      map_select("ac", "@class.outer")
+      map_select("ic", "@class.inner")
+      map_select("aa", "@parameter.outer")
+      map_select("ia", "@parameter.inner")
+      map_select("ax", "@conditional.outer")
+      map_select("ix", "@conditional.inner")
+      map_select("ar", "@loop.outer")
+      map_select("ir", "@loop.inner")
+      map_select("ab", "@block.outer")
+      map_select("ib", "@block.inner")
+
+      local function map_move(keys, fn, query)
+        vim.keymap.set({ "n", "x", "o" }, keys, function()
+          fn(query, "textobjects")
+        end)
+      end
+
+      map_move("]f", move.goto_next_start, "@function.outer")
+      map_move("]]", move.goto_next_start, "@class.outer")
+      map_move("]x", move.goto_next_start, "@conditional.outer")
+      map_move("]r", move.goto_next_start, "@loop.outer")
+
+      map_move("[f", move.goto_previous_start, "@function.outer")
+      map_move("[[", move.goto_previous_start, "@class.outer")
+      map_move("[x", move.goto_previous_start, "@conditional.outer")
+      map_move("[r", move.goto_previous_start, "@loop.outer")
+
+      vim.keymap.set("n", "<leader>a", function()
+        swap.swap_next "@parameter.inner"
+      end)
+      vim.keymap.set("n", "<leader>A", function()
+        swap.swap_previous "@parameter.inner"
+      end)
     end,
   },
 
@@ -74,9 +133,7 @@ local plugins = {
 
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      require("core.utils").lazy_load "nvim-lspconfig"
-    end,
+    event = "User FilePost",
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
@@ -85,7 +142,8 @@ local plugins = {
 
   -- load luasnips + cmp related in insert mode only
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
+    version = "*", -- use a prebuilt release (avoids needing rust/cargo)
     event = "InsertEnter",
     dependencies = {
       {
@@ -98,37 +156,21 @@ local plugins = {
         end,
       },
 
-      -- autopairing of (){}[] etc
+      -- autopairing of (){}[] etc; blink.cmp handles bracket-insertion on
+      -- completion accept itself (completion.accept.auto_brackets), so no
+      -- extra cmp-specific hook is needed here anymore.
       {
         "windwp/nvim-autopairs",
         opts = {
           fast_wrap = {},
           disable_filetype = { "TelescopePrompt", "vim" },
         },
-        config = function(_, opts)
-          require("nvim-autopairs").setup(opts)
-
-          -- setup cmp for autopairs
-          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end,
-      },
-
-      -- cmp sources plugins
-      {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
       },
     },
     opts = function()
-      return require "plugins.configs.cmp"
+      return require "plugins.configs.blink"
     end,
-    config = function(_, opts)
-      require("cmp").setup(opts)
-    end,
+    opts_extend = { "sources.default" },
   },
 
   {
@@ -141,9 +183,6 @@ local plugins = {
       { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
     },
-    init = function()
-      require("core.utils").load_mappings "comment"
-    end,
     config = function(_, opts)
       require("Comment").setup(opts)
     end,
@@ -158,9 +197,6 @@ local plugins = {
       { "nvim-telescope/telescope-file-browser.nvim" },
     },
     cmd = "Telescope",
-    init = function()
-      require("core.utils").load_mappings "telescope"
-    end,
     opts = function()
       return require "plugins.configs.telescope"
     end,
@@ -282,10 +318,4 @@ local plugins = {
   },
 }
 
-local config = require("core.utils").load_config()
-
-if #config.plugins > 0 then
-  table.insert(plugins, { import = config.plugins })
-end
-
-require("lazy").setup(plugins, config.lazy_nvim)
+require("lazy").setup(plugins, require "plugins.configs.lazy_nvim")

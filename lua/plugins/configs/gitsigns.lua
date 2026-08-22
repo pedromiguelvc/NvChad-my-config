@@ -1,4 +1,3 @@
-local utils = require "core.utils"
 local options = {
   signs = {
     add = { text = "│" },
@@ -13,9 +12,6 @@ local options = {
     delay = 0,
     virt_text_pos = "eol", -- end of line
   },
-  on_attach = function(bufnr)
-    utils.load_mappings("gitsigns", { buffer = bufnr })
-  end,
 }
 
 return options

@@ -14,8 +14,8 @@ for _, mod in ipairs(modules) do
   local ok, servers = pcall(require, mod)
 
   if ok then
-    for server, settings in pairs(servers) do
-      lsp.config(server, { settings = settings })
+    for server, cfg in pairs(servers) do
+      lsp.config(server, cfg)
       lsp.enable(server)
     end
   end

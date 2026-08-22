@@ -3,8 +3,10 @@ return {
   basedpyright = {
     basedpyright = {
       filetypes = { "python" },
-      basedpyright = { disableOrganizeImports = true },
-      analysis = { ignore = { "*" } },
+      settgins = {
+        basedpyright = { disableOrganizeImports = true },
+        analysis = { ignore = { "*" } },
+      },
     },
   },
 }
