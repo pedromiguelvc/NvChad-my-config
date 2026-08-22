@@ -51,12 +51,32 @@ map("n", "<C-u>", "<C-u>zz", { desc = "scroll up half screen" })
 -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>.
 -- Don't use g[j|k] in operator-pending mode so it doesn't alter d, y, c.
 local wrap_expr = { expr = true }
-map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', vim.tbl_extend("force", wrap_expr, { desc = "move down" }))
+map(
+  "n",
+  "j",
+  'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
+  vim.tbl_extend("force", wrap_expr, { desc = "move down" })
+)
 map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', vim.tbl_extend("force", wrap_expr, { desc = "move up" }))
-map("x", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', vim.tbl_extend("force", wrap_expr, { desc = "move down" }))
+map(
+  "x",
+  "j",
+  'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
+  vim.tbl_extend("force", wrap_expr, { desc = "move down" })
+)
 map("x", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', vim.tbl_extend("force", wrap_expr, { desc = "move up" }))
-map("v", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', vim.tbl_extend("force", wrap_expr, { desc = "move up" }))
-map("v", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', vim.tbl_extend("force", wrap_expr, { desc = "move down" }))
+map(
+  "v",
+  "<Up>",
+  'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',
+  vim.tbl_extend("force", wrap_expr, { desc = "move up" })
+)
+map(
+  "v",
+  "<Down>",
+  'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
+  vim.tbl_extend("force", wrap_expr, { desc = "move down" })
+)
 
 -- manage buffers
 map("n", "<leader>x", "<cmd>bdelete<CR>", { desc = "close current buffer" })
@@ -85,7 +105,12 @@ map("n", "<leader>/", function()
   require("Comment.api").toggle.linewise.current()
 end, { desc = "toggle comment" })
 
-map("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", { desc = "toggle comment" })
+map(
+  "v",
+  "<leader>/",
+  "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+  { desc = "toggle comment" }
+)
 
 -------------------------------------- treesj ----------------------------------------------
 
@@ -129,9 +154,27 @@ map("n", "<leader>jl", "<cmd>Telescope jumplist<CR>", { desc = "telescope jumpli
 
 map("n", "<leader>wk", "<cmd>WhichKey<CR>", { desc = "whichkey maps" })
 
--------------------------------------- lazygit ---------------------------------------------
+-------------------------------------- lspconfig -------------------------------------------
 
-map("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "open lazygit" })
+map("n", "K", function()
+  vim.lsp.buf.hover { border = "rounded", max_width = 80, max_height = 20 }
+end, { desc = "LSP Hover" })
+
+map("n", "<leader>e", function()
+  vim.diagnostic.open_float { border = nil, source = true }
+end, { desc = "Show Floating Diagnostics" })
+
+map("n", "gd", function()
+  vim.lsp.buf.definition()
+end, { desc = "Go to LSP Definition" })
+
+map("n", "[d", function()
+  vim.diagnostic.jump { count = -1 }
+end, { desc = "Goto prev diagnostic" })
+
+map("n", "]d", function()
+  vim.diagnostic.jump { count = 1 }
+end, { desc = "Goto next diagnostic" })
 
 -------------------------------------- gitsigns --------------------------------------------
 

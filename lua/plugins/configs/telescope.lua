@@ -88,7 +88,7 @@ local options = {
     lsp_dynamic_workspace_symbols = { initial_mode = "insert" },
   },
 
-  extensions_list = { "themes", "terms", "fzf", "file_browser", "lazygit" },
+  extensions_list = { "themes", "terms", "fzf", "file_browser" },
   extensions = {
     fzf = {
       fuzzy = true,
