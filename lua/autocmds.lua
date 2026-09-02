@@ -48,9 +48,9 @@ autocmd("BufReadPost", {
 })
 
 autocmd("FileType", {
-  pattern = { "lua" },
+  pattern = { "py", "ts", "java", "c", "cpp" },
   callback = function()
-    vim.bo.shiftwidth = 2
+    vim.bo.shiftwidth = 4
   end,
   desc = "Set shiftwidth to 4 in the type of files listed above",
 })
