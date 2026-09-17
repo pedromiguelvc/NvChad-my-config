@@ -168,6 +168,11 @@ map("n", "gd", function()
   vim.lsp.buf.definition()
 end, { desc = "Go to LSP Definition" })
 
+map("n", "<C-w>gd", function()
+  vim.cmd "vspli"
+  vim.lsp.buf.definition()
+end)
+
 map("n", "[d", function()
   vim.diagnostic.jump { count = -1 }
 end, { desc = "Goto prev diagnostic" })
