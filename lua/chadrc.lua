@@ -58,12 +58,13 @@ M.nvdash = {
     "   ▀ ▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀ ",
   },
   buttons = {
-    { txt = "File Browser", keys = "fe", cmd = "Telescope file_browser" },
     { txt = "Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
+    { txt = "File Browser", keys = "fe", cmd = "Telescope file_browser" },
     { txt = "Find File", keys = "ff", cmd = "Telescope find_files" },
     { txt = "Find All", keys = "fa", cmd = "Telescope find_files follow=true no_ignore=true hidden=true" },
-    { txt = "Lazy Git", keys = "lg", cmd = "LazyGit" },
     { txt = "Find Word", keys = "fw", cmd = "Telescope live_grep" },
+    { txt = "Lazy", keys = "_", cmd = "Lazy" },
+    { txt = "Quit", keys = "_", cmd = "qall" },
   },
 }
 
