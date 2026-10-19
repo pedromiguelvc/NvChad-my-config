@@ -42,7 +42,6 @@ map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "decrease horizonta
 
 -- copy
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "copy whole file" })
-map("n", "<C-y>", '"+yy', { desc = "copy line" })
 
 -- navigation
 map("n", "<C-d>", "<C-d>zz", { desc = "scroll down half screen" })
@@ -93,7 +92,6 @@ end, { desc = "toggle fold column" })
 -- visual mode
 map("v", "<", "<gv", { desc = "indent line" })
 map("v", ">", ">gv", { desc = "indent line" })
-map("v", "<C-y>", '"+y', { desc = "copy to clipboard register" })
 
 -- Don't copy the replaced text after pasting in visual mode
 -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste

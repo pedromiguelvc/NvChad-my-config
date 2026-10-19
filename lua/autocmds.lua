@@ -101,3 +101,7 @@ autocmd("FileType", {
   end,
   desc = "Dont list quickfix buffers",
 })
+
+autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  command = "silent! checktime",
+})
