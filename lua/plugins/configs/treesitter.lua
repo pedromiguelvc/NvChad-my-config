@@ -10,6 +10,9 @@ M.ensure_installed = {
   "cpp",
   "python",
   "go",
+  "javascript",
+  "typescript",
+  "tsx",
 
   -- Config Languages
   "lua",

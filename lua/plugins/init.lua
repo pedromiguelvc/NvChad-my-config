@@ -298,6 +298,13 @@ local plugins = {
       require "plugins.configs.treesj"
     end,
   },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = "markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
 }
 
 require("lazy").setup(plugins, require "plugins.configs.lazy_nvim")
