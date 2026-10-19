@@ -3,7 +3,9 @@ return {
     filetypes = { "nix" },
     settings = {
       ["nil"] = {
-        nix = { autoArchive = true },
+        nix = {
+          flake = { autoArchive = true },
+        },
       },
     },
   },
