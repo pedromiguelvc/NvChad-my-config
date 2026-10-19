@@ -2,15 +2,6 @@ local lualine = require "lualine"
 local noice_mode = require("noice").api.statusline.mode
 local fn = vim.fn
 
-local function truncate(str, max, head, tail)
-  head = head or 6
-  tail = tail or 6
-  if #str > max then
-    return str:sub(1, head) .. "..." .. str:sub(-tail)
-  end
-  return str
-end
-
 lualine.setup {
   options = {
     icons_enabled = true,
@@ -47,21 +38,13 @@ lualine.setup {
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      {
-        "branch",
-        fmt = function(s)
-          return truncate(s, 20)
-        end,
-      },
+      "branch",
       "diff",
       "diagnostics",
     },
     lualine_c = {
       {
         "buffers",
-        fmt = function(s)
-          return truncate(s, 15)
-        end,
         show_filename_only = true,
         show_modified_status = true,
         mode = 0,
