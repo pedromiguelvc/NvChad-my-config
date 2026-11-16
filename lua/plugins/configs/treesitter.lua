@@ -13,6 +13,7 @@ M.ensure_installed = {
   "javascript",
   "typescript",
   "tsx",
+  "rust",
 
   -- Config Languages
   "lua",

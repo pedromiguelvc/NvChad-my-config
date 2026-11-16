@@ -1,16 +1,10 @@
 local lsp = require("plugins.configs.lspconfig").lsp
+local config_dir = vim.fn.stdpath "config" .. "/lua/custom/configs/lsp"
 
-local modules = {
-  "custom.configs.lsp.python",
-  "custom.configs.lsp.clangd",
-  "custom.configs.lsp.typescript",
-  "custom.configs.lsp.java",
-  "custom.configs.lsp.go",
-  "custom.configs.lsp.haskell",
-  "custom.configs.lsp.nix",
-}
+for _, file in ipairs(vim.fn.glob(config_dir .. "/*.lua", false, true)) do
+  local name = vim.fn.fnamemodify(file, ":t:r")
+  local mod = "custom.configs.lsp." .. name
 
-for _, mod in ipairs(modules) do
   local ok, servers = pcall(require, mod)
 
   if ok then
@@ -18,5 +12,7 @@ for _, mod in ipairs(modules) do
       lsp.config(server, cfg)
       lsp.enable(server)
     end
+  else
+    vim.notify("Failed to load LSP config: " .. mod, vim.log.levels.ERROR)
   end
 end
